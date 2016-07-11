@@ -29,32 +29,37 @@ var z = ["Zombie", "Zoro", "Zigzag"];
 
 // res.match[1] stores any word included in string by user
 
-robot.hear( /spell (.*)/i, function(res) {
+robot.hear( /spell (.*)/i, function( spelling ) {
 
+    //takes word(s) written other than 'spell ' and asigns them to word()
     var word;
-    word = res.match[1];
+    word = spelling.match[1];
 
+    //takes first letter of word(s) wirtten and asigns it firstLetter()
     var firstLetter;
     firstLetter = word.charAt(0);
 
+    //takes firstLetter() and converts from string to an array (object)
     var correctLetterArray;
     correctLetterArray = eval(firstLetter);
 
+    //takes the specific array - a(),b(),c() etc - and returns a random string from it
     var randomSuggestion;
     randomSuggestion = correctLetterArray[Math.floor(Math.random()*correctLetterArray.length)];
 
-    return res.reply ( "I believe it's spelled \'"+randomSuggestion+"\', Dave." );
+    //Puts the selected word suggestion into a sentence and returns
+    return spelling.send( "I believe it's spelled \'"+randomSuggestion+"\', Dave." );
 
     });
 
 // Standard simple listeners and replies
 
-robot.hear( /hello/i, function( msg ) {
-    return msg.send("Hello, Dave.");
+robot.hear( /hello/i, function( hello ) {
+    return hello.send("Hello, Dave.");
     });
 
-robot.hear( /thanks/i, function( msg ) {
-    return msg.send ( "You are welcome, Dave." );
+robot.hear( /thanks/i, function( thanks ) {
+    return thanks.send ( "You are welcome, Dave." );
     });
 
   };
